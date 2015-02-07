@@ -1,0 +1,21 @@
+#!/bin/bash
+
+SUDO='sudo'
+CHEF_SERVER_CTL="$SUDO chef-server-ctl"
+PG_DUMPALL="$SUDO -u opscode-pgsql /opt/opscode/embedded/bin/pg_dumpall"
+
+$CHEF_SERVER_CTL stop
+
+pushd <%= node['chef-server']['backup_path'] %>
+
+echo Backup Chef files
+$SUDO tar cvfzp chef-server-config.tar.gz /etc/opscode*
+
+echo Backup Chef database
+$CHEF_SERVER_CTL start postgresql
+
+$PG_DUMPALL -c | gzip --fast > chef-server-pgsql.gz
+
+popd
+
+$CHEF_SERVER_CTL start

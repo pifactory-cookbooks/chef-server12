@@ -1,0 +1,20 @@
+#!/bin/bash
+
+chef-server-ctl stop
+tar xvfzp --exclude=/var/opt/opscode <%= node['chef-server']['backup_path'] %>/chef-server-config.tar.gz -C /
+
+chef-server-ctl start postgresql
+gunzip -c <%= node['chef-server']['backup_path'] %>/chef-server-pgsql.gz | \
+  sudo -u opscode-pgsql /opt/opscode/embedded/bin/psql -U "opscode-pgsql" -d postgres
+
+chef-server-ctl start
+<% if node['chef-server']['install-web-ui'] -%>
+opscode-manage-ctl reconfigure
+<% end -%>
+<% if node['chef-server']['install-push-jobs-server'] -%>
+opscode-push-jobs-server-ctl reconfigure
+<% end -%>
+<% if node['chef-server']['install-reporting'] -%>
+opscode-reporting-ctl reconfigure
+<% end -%>
+chef-server-ctl reconfigure

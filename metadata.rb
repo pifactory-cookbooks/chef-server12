@@ -1,0 +1,7 @@
+name             'chef-server12'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures chef-server12'
+long_description 'Installs/Configures chef-server12'
+version          '0.1.0'
