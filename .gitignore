@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *~
 *#
 .#*
@@ -13,10 +14,19 @@ Berksfile.lock
 
 # Bundler
 Gemfile.lock
+=======
+.vagrant
+/cookbooks
+
+# Bundler
+>>>>>>> 36919958ac94fcf659abc0efc861223736da390a
 bin/*
 .bundle/*
 
 .kitchen/
 .kitchen.local.yml
+<<<<<<< HEAD
 
 *.iml
+=======
+>>>>>>> 36919958ac94fcf659abc0efc861223736da390a
