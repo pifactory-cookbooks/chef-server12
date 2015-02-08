@@ -1,6 +1,6 @@
 name             'chef-server12'
 maintainer       'Alexander Dvorkovyy'
-maintainer_email 'advorkovyy@gmail.com'
+maintainer_email 'advorkovyy'
 license          'Apache 2.0'
 description      'Installs/Configures standalone Chef Server 12'
 long_description 'Installs/Configures standalone Chef Server 12'

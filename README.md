@@ -65,4 +65,4 @@ Include `chef-server12::backup_scripts` in your node's `run_list`:
 
 ## License and Authors
 
-Author:: Alexander Dvorkovyy (<advorkovyy@gmail.com>)
+Author:: Alexander Dvorkovyy
