@@ -2,7 +2,7 @@ default['chef-server']['download_url']="https://web-dl.packagecloud.io/chef/stab
 
 default['chef-server']['create-user']=true
 # this directory must exist
-default['chef-server']['pem-dir']="#{ENV['HOME']}"
+default['chef-server']['pem-dir']=ENV['HOME']
 default['chef-server']['username']="admin"
 # insecure password, must be changed right after install
 default['chef-server']['password']="password"
