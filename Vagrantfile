@@ -88,8 +88,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     chef.verbose_logging = true
     chef.run_list = [
         'recipe[apt::default]',
-        'recipe[chef-server12::default]',
-        'recipe[chef-server12::backup_scripts]'
+        'recipe[chef_server12::default]',
+        'recipe[chef_server12::web-ui]',
+        'recipe[chef_server12::push-jobs-server]',
+        'recipe[chef_server12::reporting]',
+        'recipe[chef_server12::backup_scripts]'
     ]
+    # chef.json = {
+    #     'chef-server' => {
+    #         'user' => {
+    #             :create => false
+    #         }
+    #     }
+    # }
   end
 end

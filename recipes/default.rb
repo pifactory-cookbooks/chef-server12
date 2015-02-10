@@ -25,19 +25,36 @@ remote_file package_local_path do
   source package_url
 end
 
-template "/tmp/chef-server-config.sh" do
-  source "install-chef-server.sh.erb"
-  mode "0755"
-end
-
 package package_name do
   source package_local_path
   provider Chef::Provider::Package::Dpkg
-  notifies :run, 'execute[chef-server-config]', :immediately
+  notifies :run, 'execute[reconfigure-chef-server]', :immediately
+  notifies :run, 'execute[create-user]', :immediately
 end
 
-execute "chef-server-config" do
+execute "reconfigure-chef-server" do
+  command "chef-server-ctl reconfigure"
   action :nothing
-  cwd "/tmp"
-  command "/tmp/chef-server-config.sh > chef-server-config.log"
+end
+
+execute "create-user" do
+  command "chef-server-ctl user-create #{node['chef-server']['user']['username']}" +
+          " \"#{node['chef-server']['user']['first_name']}\"" +
+          " \"#{node['chef-server']['user']['last_name']}\"" +
+          " \"#{node['chef-server']['user']['email']}\"" +
+          " \"#{node['chef-server']['user']['password']}\"" +
+          " --filename #{node['chef-server']['pem-export-dir']}/#{node['chef-server']['user']['username']}.pem"
+
+  action :nothing
+  notifies :run, 'execute[create-org]', :immediately
+  only_if { node['chef-server']['user']['create'] }
+end
+
+execute "create-org" do
+  command "chef-server-ctl org-create #{node['chef-server']['org']['short_name']}" +
+              " \"#{node['chef-server']['org']['long_name']}\"" +
+              " --association_user #{node['chef-server']['user']['username']}" +
+              " --filename #{node['chef-server']['pem-export-dir']}/#{node['chef-server']['org']['short_name']}-validation.pem"
+
+  action :nothing
 end

@@ -1,4 +1,4 @@
-# chef-server12-cookbook
+# chef-server12
 
 Installs and configures standalone Chef Server 12.
 
