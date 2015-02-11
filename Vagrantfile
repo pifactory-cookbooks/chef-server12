@@ -94,12 +94,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         'recipe[chef_server12::reporting]',
         'recipe[chef_server12::backup_scripts]'
     ]
-    # chef.json = {
-    #     'chef-server' => {
-    #         'user' => {
-    #             :create => false
-    #         }
-    #     }
-    # }
+    chef.json = {
+        'chef-server' => {
+            'api_fqdn' => 'chef.example.dev'
+        }
+    }
   end
 end
