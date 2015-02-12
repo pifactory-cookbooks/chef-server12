@@ -34,8 +34,6 @@ end
 
 template '/etc/opscode/chef-server.rb' do
   source 'chef-server.rb.erb'
-  user 'opscode'
-  group 'opscode'
 
   action :nothing
   notifies :run, 'execute[reconfigure-chef-server]', :immediately
