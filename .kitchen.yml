@@ -19,5 +19,6 @@ platforms:
 suites:
   - name: default
     run_list:
-    - recipe[chef-server12::default]
+    - recipe[apt::default]
+    - recipe[chef_server12::default]
     attributes:

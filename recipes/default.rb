@@ -28,15 +28,8 @@ end
 package package_name do
   source package_local_path
   provider Chef::Provider::Package::Dpkg
-  notifies :create, 'template[/etc/opscode/chef-server.rb]', :immediately
-  notifies :run, 'execute[create-user]', :immediately
-end
-
-template '/etc/opscode/chef-server.rb' do
-  source 'chef-server.rb.erb'
-
-  action :nothing
   notifies :run, 'execute[reconfigure-chef-server]', :immediately
+  notifies :run, 'execute[create-user]', :immediately
 end
 
 execute "reconfigure-chef-server" do
